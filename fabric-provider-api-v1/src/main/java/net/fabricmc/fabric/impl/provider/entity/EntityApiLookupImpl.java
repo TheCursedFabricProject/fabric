@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2016, 2017, 2018, 2019 FabricMC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package net.fabricmc.fabric.impl.provider.entity;
 
 import java.util.Objects;
@@ -34,7 +50,7 @@ final class EntityApiLookupImpl<T, C> implements EntityApiLookup<T, C> {
 		// Entities have two access methods due to the way registration works.
 		// Check the entity type first and fallback to entity class if we get no api.
 		@SuppressWarnings("unchecked")
-		final EntityApiProvider<Entity, T, C> providerFromType = (EntityApiProvider<Entity, T, C>) entityTypeProviderMap.get(entity.getType());
+		final EntityApiProvider<Entity, T, C> providerFromType = (EntityApiProvider<Entity, T, C>) this.entityTypeProviderMap.get(entity.getType());
 
 		if (providerFromType != null) {
 			// See if the api returned is null
@@ -47,7 +63,7 @@ final class EntityApiLookupImpl<T, C> implements EntityApiLookup<T, C> {
 
 		// Try the entity class
 		//noinspection unchecked
-		final EntityApiProvider<Entity, T, C> providerFromClass = (EntityApiProvider<Entity, T, C>) entityClassProviderMap.get((Class<Entity>) entity.getClass());
+		final EntityApiProvider<Entity, T, C> providerFromClass = (EntityApiProvider<Entity, T, C>) this.entityClassProviderMap.get((Class<Entity>) entity.getClass());
 
 		if (providerFromClass != null) {
 			return providerFromClass.get(entity, context);
